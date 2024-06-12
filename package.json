@@ -1,0 +1,16 @@
+{
+  "name": "supercamo-example-basic",
+  "version": "1.0.0",
+  "description": "Example of SuperCamo usage in a NodeJS terminal application.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js --trace-warnings"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bigfootds/supercamo": "^0.3.3",
+    "iso-639-1": "^3.1.2"
+  }
+}

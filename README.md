@@ -1,2 +1,59 @@
-# supercamo-example-basic
+# SuperCamo Example: Basic
+
 Example of SuperCamo usage in a NodeJS terminal application.
+
+
+
+## Models
+
+This example uses documents and embedded documents.
+
+Model schema summaries as follows:
+
+```json
+// User - Document
+{
+    "name":"String",
+    "biography":"LocalizedContent subdocument"
+}
+```
+
+```json
+// LocalizedContent - Subdocument
+{
+    "language":"String",
+    "content":"String"
+}
+```
+
+```json
+// Article - Document
+{
+    "title":["LocalizedContent subdocuments"],
+    "content":["LocalizedContent subdocuments"],
+    "authors":["User document references"]
+}
+```
+
+The dependency of the models can be pictured like this:
+
+```mermaid
+graph TD
+    A(Article) -- has reference to many --> B(User)
+    A -- contains many --> C(LocalizedContent)
+    B -- contains one --> C
+```
+
+
+## Functionality
+
+- [x] Create documents via insertMany
+- [x] Create documents via insertOne
+- [x] Create documents that refer to other documents by ID
+- [x] Create documents that use embedded documents
+- [x] Read all documents in a specific collection
+- [x] Read all documents in all collections
+- [ ] Update document primitive-typed data
+- [ ] Update a document's embedded document-typed data
+- [x] Delete all documents from all collections
+- [ ] Delete a specific document from a specific collection
