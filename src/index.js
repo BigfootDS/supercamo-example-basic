@@ -38,6 +38,9 @@ async function app(){
 	let dumpResult = await databaseInstance.dumpDatabase();
 	console.log("Dumped database data:");
 	console.log(JSON.stringify(dumpResult, null, 4));
+
+	
+
 }
 
 app();

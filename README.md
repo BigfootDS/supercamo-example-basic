@@ -51,8 +51,14 @@ graph TD
 - [x] Create documents via insertOne
 - [x] Create documents that refer to other documents by ID
 - [x] Create documents that use embedded documents
-- [x] Read all documents in a specific collection
-- [x] Read all documents in all collections
+- [x] Retrieve all documents in a specific collection as objects
+- [ ] Retrieve all documents in a specific collection as document instances
+- [x] Retrieve all documents in all collections as objects
+- [x] Retrieve all documents in all collections as objects, populating any referenced data
+- [ ] Retrieve all documents in all collections as document instances
+- [x] Retrieve a specific document by specific query as an object
+- [x] Retrieve a specific document by specific query as an object, populating any referenced data
+- [ ] Retrieve a specific document by specific query as a document instance
 - [ ] Update document primitive-typed data
 - [ ] Update a document's embedded document-typed data
 - [x] Delete all documents from all collections

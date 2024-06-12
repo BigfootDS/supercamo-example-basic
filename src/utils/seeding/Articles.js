@@ -73,6 +73,22 @@ async function seed(){
 	console.log(insertOneResult);
 
 	console.log("Article seeding complete.");
+
+
+	console.log("-----------------------");
+	console.log("Finding one Article and populating it so that it shows User data too.");
+	let populatedArticle = await databaseInstance.findOneObject("Articles", { "title.content":"Some Extra Article"}, true);
+	console.log("Populated article content:");
+	console.log(JSON.stringify(populatedArticle, null, 4));
+	console.log("-----------------------");
+
+	
+	console.log("-----------------------");
+	console.log("Finding and populating all Articles!")
+	let populatedArticles = await databaseInstance.findManyObjects("Articles", {}, true);
+	console.log("Populated articles content:");
+	console.log(JSON.stringify(populatedArticles, null, 4));
+	console.log("-----------------------");
 }
 
 module.exports = seed;
