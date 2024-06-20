@@ -57,13 +57,13 @@ graph TD
 ### READ
 
 - [x] Retrieve all documents in a specific collection as objects
-- [ ] Retrieve all documents in a specific collection as document instances
+- [x] Retrieve all documents in a specific collection as document instances
 - [x] Retrieve all documents in all collections as objects
 - [x] Retrieve all documents in all collections as objects, populating any referenced data
-- [ ] Retrieve all documents in all collections as document instances
+- [x] Retrieve all documents in all collections as document instances
 - [x] Retrieve a specific document by specific query as an object
 - [x] Retrieve a specific document by specific query as an object, populating any referenced data
-- [ ] Retrieve a specific document by specific query as a document instance
+- [x] Retrieve a specific document by specific query as a document instance
 
 ### UPDATE
 

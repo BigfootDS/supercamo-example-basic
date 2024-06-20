@@ -1,7 +1,7 @@
-const SuperCamo = require("@bigfootds/supercamo");
+const NedbDocument = require("@bigfootds/supercamo/NedbDocument");
 const { LocalizedContent } = require("../subdocuments/LocalizedContent");
 
-class User extends SuperCamo.NedbDocument {
+class User extends NedbDocument {
 	constructor(data, databaseName, collectionName){
 		super(data, databaseName, collectionName);
 		

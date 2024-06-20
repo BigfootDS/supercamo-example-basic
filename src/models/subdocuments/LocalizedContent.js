@@ -1,4 +1,4 @@
-const SuperCamo = require("@bigfootds/supercamo");
+const NedbEmbeddedDocument = require('@bigfootds/supercamo/NedbEmbeddedDocument');
 const ISO6391 = require('iso-639-1');
 let allowedLanguageCodes = ISO6391.getAllCodes();
 
@@ -12,7 +12,7 @@ let allowedLanguageCodes = ISO6391.getAllCodes();
  * @class
  * @property {String} language Required. The language of this content. Should be an ISO-639-1-compliant two-letter code.
  * @property {String} content Required. The content written in the specified language.
- * @extends {SuperCamo.NedbEmbeddedDocument}
+ * @extends {NedbEmbeddedDocument}
  
 Example data:
  ```js
@@ -26,7 +26,7 @@ Example data:
  }
  ```
  */
- class LocalizedContent extends SuperCamo.NedbEmbeddedDocument {
+ class LocalizedContent extends NedbEmbeddedDocument {
 	constructor(data, databaseName, collectionName){
 		super(data, databaseName, collectionName);
 		/**
