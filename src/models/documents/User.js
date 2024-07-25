@@ -1,5 +1,8 @@
 const NedbDocument = require("@bigfootds/supercamo/NedbDocument");
 const { LocalizedContent } = require("../subdocuments/LocalizedContent");
+const bcrypt = require("bcrypt");
+const crypto = require("node:crypto");
+const saltRounds = 10;
 
 class User extends NedbDocument {
 	constructor(data, databaseName, collectionName){
@@ -13,7 +16,14 @@ class User extends NedbDocument {
 
 		this.biography = {
 			type: LocalizedContent,
-			required: false
+			required: false,
+			unique: false
+		}
+
+		this.password = {
+			type: String,
+			required: false,
+			unique: false
 		}
 	}
 }
