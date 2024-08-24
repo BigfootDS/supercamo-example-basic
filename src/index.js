@@ -2,9 +2,13 @@ const { Article } = require("./models/documents/Article.js");
 const { LocalizedContent } = require("./models/subdocuments/LocalizedContent.js");
 const path = require("node:path");
 const { User } = require("./models/documents/User.js");
-const SuperCamo = require("@bigfootds/supercamo");
+const {SuperCamo, NedbClient} = require("@bigfootds/supercamo");
 
 
+/**
+ * @type {NedbClient }
+ * @author BigfootDS
+ */
 let databaseInstance = null;
 
 
@@ -20,7 +24,7 @@ let databaseInstance = null;
  */
 async function connect(){
 	// Connect to the database
-	databaseInstance = await SuperCamo.connect(
+	databaseInstance = SuperCamo.clientConnect(
 		"BasicExampleDatabase", 
 		path.join(process.cwd(), ".sandbox" , "databases"),
 		[
@@ -74,7 +78,7 @@ async function create(){
  * @async
  */
 async function dump(){
-		let dumpResult = await databaseInstance.dumpDatabase();
+		let dumpResult = await databaseInstance.dumpDatabaseAsObjects();
 		console.log("Dumped database data:");
 		console.log(JSON.stringify(dumpResult, null, 4));
 }

@@ -1,4 +1,4 @@
-const NedbDocument = require("@bigfootds/supercamo/NedbDocument");
+const { NedbDocument } = require("@bigfootds/supercamo");
 const { LocalizedContent } = require("../subdocuments/LocalizedContent");
 const bcrypt = require("bcrypt");
 const crypto = require("node:crypto");

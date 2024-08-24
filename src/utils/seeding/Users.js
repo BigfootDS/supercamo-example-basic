@@ -1,4 +1,4 @@
-const SuperCamo = require("@bigfootds/supercamo");
+const {SuperCamo} = require("@bigfootds/supercamo");
 
 
 const data = [
@@ -21,7 +21,7 @@ const data = [
 async function seed(){
 
 	console.log("Getting client reference to database BasicExampleDatabase now.");
-	const databaseInstance = SuperCamo.getClientByName("BasicExampleDatabase");
+	const databaseInstance = SuperCamo.clientGet("BasicExampleDatabase");
 
 	console.log("Beginning User seeding.");
 

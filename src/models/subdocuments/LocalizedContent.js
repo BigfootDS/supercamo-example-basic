@@ -1,4 +1,4 @@
-const NedbEmbeddedDocument = require('@bigfootds/supercamo/NedbEmbeddedDocument');
+const { NedbEmbeddedDocument } = require('@bigfootds/supercamo');
 const ISO6391 = require('iso-639-1');
 let allowedLanguageCodes = ISO6391.getAllCodes();
 
