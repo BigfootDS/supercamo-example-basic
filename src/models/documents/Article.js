@@ -8,21 +8,22 @@ class Article extends NedbDocument {
 	constructor(data, databaseName, collectionName){
 		super(data, databaseName, collectionName);
 		
-		this.title = {
-			type: [LocalizedContent],
-			required: true
+		this.rules = {
+			title: {
+				type: [LocalizedContent],
+				required: true
+			},
+			content: {
+				type: [LocalizedContent],
+				required: true
+			},
+			authors: {
+				type: [User],
+				collection: "Users",
+				required: true	
+			}
 		}
-
-		this.content = {
-			type: [LocalizedContent],
-			required: true
-		}
-
-		this.authors = {
-			type: [User],
-			collection: "Users",
-			required: true
-		}
+		
 	}
 }
 
