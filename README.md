@@ -13,8 +13,8 @@ Model schema summaries as follows:
 ```json
 // User - Document
 {
-    "name":"String",
-    "biography":"LocalizedContent subdocument",
+    "username":"String",
+    "biography":["LocalizedContent subdocument"],
     "password":"String"
 }
 ```
@@ -42,7 +42,7 @@ The dependency of the models can be pictured like this:
 graph TD
     A(Article) -- has reference to many --> B(User)
     A -- contains many --> C(LocalizedContent)
-    B -- contains one --> C
+    B -- contains many --> C
 ```
 
 
