@@ -14,7 +14,8 @@ Model schema summaries as follows:
 // User - Document
 {
     "name":"String",
-    "biography":"LocalizedContent subdocument"
+    "biography":"LocalizedContent subdocument",
+    "password":"String"
 }
 ```
 

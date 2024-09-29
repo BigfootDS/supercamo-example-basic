@@ -2,9 +2,13 @@ const { Article } = require("./models/documents/Article.js");
 const { LocalizedContent } = require("./models/subdocuments/LocalizedContent.js");
 const path = require("node:path");
 const { User } = require("./models/documents/User.js");
-const SuperCamo = require("@bigfootds/supercamo");
+const {SuperCamo, NedbClient, CollectionListEntry} = require("@bigfootds/supercamo");
 
 
+/**
+ * @type {NedbClient }
+ * @author BigfootDS
+ */
 let databaseInstance = null;
 
 
@@ -20,12 +24,12 @@ let databaseInstance = null;
  */
 async function connect(){
 	// Connect to the database
-	databaseInstance = await SuperCamo.connect(
+	databaseInstance = SuperCamo.clientConnect(
 		"BasicExampleDatabase", 
-		path.join(process.cwd(), ".sandbox" , "databases"),
+		path.join(process.cwd(), ".sandbox" , "databases", "BasicExampleDatabase"),
 		[
-			{name:"Users", model:User},
-			{name: "Articles", model: Article}
+			new CollectionListEntry("Users", User),
+			new CollectionListEntry("Articles", Article)
 		]
 	);
 	console.log("Database instance:");
@@ -41,7 +45,9 @@ async function connect(){
  */
 async function drop(){
 	// Drop the database to remove any old data
-	let dropResult = await databaseInstance.dropDatabase();
+	let dropResult = 0;
+	dropResult += await databaseInstance.findAndDeleteMany("Users", {});
+	dropResult += await databaseInstance.findAndDeleteMany("Articles", {});
 	console.log("Database pre-seed drop step removed this much data:");
 	console.log(dropResult);
 }
@@ -74,9 +80,15 @@ async function create(){
  * @async
  */
 async function dump(){
-		let dumpResult = await databaseInstance.dumpDatabase();
 		console.log("Dumped database data:");
-		console.log(JSON.stringify(dumpResult, null, 4));
+		// NOT IMPLEMENTED:
+		// let dumpResult = await databaseInstance.dumpDatabaseAsObjects();
+		// console.log(dumpResult);
+		// Dump manually instead!
+		let manualDump = {};
+		manualDump.users = await databaseInstance.findManyObjects("Users", {});
+		manualDump.articles = await databaseInstance.findManyObjects("Articles", {});
+		console.log(JSON.stringify(manualDump, null, 4));
 }
 
 
@@ -92,7 +104,7 @@ async function readAllObjects(){
 	
 	console.log("-----------------------");
 	console.log("Finding and populating all Articles!")
-	let populatedArticles = await databaseInstance.findManyObjects("Articles", {}, true);
+	let populatedArticles = await databaseInstance.findManyObjects("Articles", {});
 	console.log("Populated articles content:");
 	console.log(JSON.stringify(populatedArticles, null, 4));
 	console.log("-----------------------");
@@ -101,25 +113,21 @@ async function readAllObjects(){
 async function readAllArticleDocuments(){
 	console.log("-----------------------");
 	console.log("Finding one specific Article as a document instance.");
-	let foundSpecificArticle = await databaseInstance.findOneDocument("Articles", { "title.content":"Some Extra Article"}, true);
+	let foundSpecificArticle = await databaseInstance.findOneDocument("Articles", { "title.content":"Some Extra Article"});
 	console.log("Found specific article content:");
-	console.log(JSON.stringify(foundSpecificArticle, null, 4));
+	console.log(foundSpecificArticle);
 	console.log("-----------------------");
 
 	
 	console.log("-----------------------");
 	console.log("Finding all Articles as document instances.")
-	let foundArticles = await databaseInstance.findManyDocuments("Articles", {}, true);
+	let foundArticles = await databaseInstance.findManyDocuments("Articles", {});
 	console.log("Found articles content:");
-	console.log(JSON.stringify(foundArticles, null, 4));
+	console.log(foundArticles);
 	console.log("-----------------------");
 }
 
-async function dumpDocuments(){
-	let dumpResult = await databaseInstance.dumpDatabaseDocuments();
-	console.log("Dumped database documents:");
-	console.log(JSON.stringify(dumpResult, null, 4));
-}
+
 
 
 async function app(){
@@ -131,7 +139,6 @@ async function app(){
 	
 	await dump();
 
-	await dumpDocuments();
 }
 
 app();

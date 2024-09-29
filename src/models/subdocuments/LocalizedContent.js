@@ -1,4 +1,4 @@
-const NedbEmbeddedDocument = require('@bigfootds/supercamo/NedbEmbeddedDocument');
+const { NedbEmbeddedDocument } = require('@bigfootds/supercamo');
 const ISO6391 = require('iso-639-1');
 let allowedLanguageCodes = ISO6391.getAllCodes();
 
@@ -17,37 +17,42 @@ let allowedLanguageCodes = ISO6391.getAllCodes();
 Example data:
  ```js
  {
- 	language: "en",
+	  language: "en",
 	content: "Butter"
  }
  {
- 	language: "fr",
+	  language: "fr",
 	content: "Beurré"
  }
  ```
  */
- class LocalizedContent extends NedbEmbeddedDocument {
-	constructor(data, databaseName, collectionName){
+class LocalizedContent extends NedbEmbeddedDocument {
+	constructor(data, databaseName, collectionName) {
 		super(data, databaseName, collectionName);
-		/**
-		 * A two-letter language code that matches the language of this subdocument's name and content.
-		 * Examples: "EN", "FR", "DE"
-		 * Refer to the ISO-639-1 standard online for the full list of usable codes.
-		 */
-		this.language = {
-			type: String,
-			choices: allowedLanguageCodes,
-			unique: false,
-			required: true
+
+		this.rules = {
+			/**
+			 * A two-letter language code that matches the language of this subdocument's name and content.
+			 * Examples: "EN", "FR", "DE"
+			 * Refer to the ISO-639-1 standard online for the full list of usable codes.
+			 */
+			language: {
+				type: String,
+				choices: allowedLanguageCodes,
+				unique: false,
+				required: true
+			},
+			/**
+			 * A document uses LocalizedContent as a subdocument. The content here is the brief blurb or description of the entity represented by that document.
+			 */
+			content: {
+				type: String,
+				required: true,
+				unique: false
+			}
 		}
-		/**
-		 * A document uses LocalizedContent as a subdocument. The content here is the brief blurb or description of the entity represented by that document.
-		 */
-		this.content = {
-			type: String,
-			required: true,
-			unique: false
-		}
+
+
 	}
 
 }

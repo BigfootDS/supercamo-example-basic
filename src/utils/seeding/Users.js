@@ -1,28 +1,29 @@
-const SuperCamo = require("@bigfootds/supercamo");
+const {SuperCamo} = require("@bigfootds/supercamo");
 
 
 const data = [
 	{
 		username: "Bigfoot",
-		biography: {
+		biography: [{
 			language: "en",
 			content: "The man, the myth - the cryptid."
-		}
+		}],
+		password: "SuperSecurePassword1"
 	},
 	{
 		username: "Alex",
-		biography: {
+		biography: [{
 			language: "en",
 			content: "The man, the dude - the guy."
-		}
+		}],
+		password: "SuperSecurePassword1"
 	}
 ]
 
 async function seed(){
 
 	console.log("Getting client reference to database BasicExampleDatabase now.");
-	const databaseInstance = SuperCamo.getClientByName("BasicExampleDatabase");
-
+	const databaseInstance = SuperCamo.clientGet("BasicExampleDatabase");
 	console.log("Beginning User seeding.");
 
 	console.log("Seeding User via insertMany.");
@@ -33,10 +34,11 @@ async function seed(){
 	console.log("Seeding User via insertOne.");
 	let insertOneResult = await databaseInstance.insertOne("Users", {
 		username: "L'homme de francais",
-		biography: {
+		biography: [{
 			language: "fr",
 			content: "Je ne sais pas des mots pour cette tâche."
-		}
+		}],
+		password: "LeMotDePass1"
 	});
 	console.log("Result of the User insertOne:");
 	console.log(insertOneResult);
